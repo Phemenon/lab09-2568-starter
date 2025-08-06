@@ -1,3 +1,4 @@
+
 interface props {
   id: string;
   title: string;
@@ -18,6 +19,7 @@ export default function TaskCard({
   // callback function when delete button is clicked
   const deleteBtnOnClick = () => {
     deleteTaskFunc(id);
+    
   };
 
   const toggleDoneBtnOnClick = () => {

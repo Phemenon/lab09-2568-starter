@@ -25,16 +25,28 @@ function App() {
     },
   ]);
 
+  const [done, setDone] = useState(0);
+  const addDone = (n: number) => {
+    setDone(n);
+  }
+  const [task,setTask] = useState(tasks.length);
+  const addTask = (n: number) => {
+    setTask(n);
+  }
+
   const handleAdd = (newTask: TaskCardProps) => {
     //make a new array based on old "tasks" and add newTask as last one
     const newTasks = [...tasks, newTask];
     setTasks(newTasks);
+    addTask(newTasks.length);
   };
 
   // Define the function with proper type
   const deleteTask = (taskId: string) => {
     const newTasks = tasks.filter((task: TaskCardProps) => task.id !== taskId);
     setTasks(newTasks);
+    addTask(newTasks.length);
+
   };
 
   // Define the function with proper type
@@ -43,13 +55,15 @@ function App() {
       todo.id === taskId ? { ...todo, isDone: !todo.isDone } : todo
     );
     setTasks(newTasks);
+    const isDone = newTasks.filter((todo: TaskCardProps) => todo.isDone == true);
+    addDone(isDone.length);
   };
 
   return (
     <div className="col-12 m-2 p-0">
       <div className="container text-center">
         <h2>Todo List</h2>
-        <span className="m-2">All : () Done : ()</span>
+        <span className="m-2">All : ({task}) Done : ({done})</span>
         {/* Modal Component */}
         <button
           type="button"
